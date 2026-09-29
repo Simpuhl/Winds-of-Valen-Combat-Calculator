@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winds of Valen - Combat Level Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            color: #ffcc00;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        .input-group {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        label {
+            font-size: 0.9rem;
+        }
+        input {
+            width: 70px;
+            padding: 5px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+        }
+        input:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #333;
+            margin: 15px 0;
+        }
+        .result-box {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Winds of Valen<br>Combat Calculator</h2>
+    
+    <div class="input-group">
+        <label for="atk">Attack Level:</label>
+        <input type="number" id="atk" value="1" min="1" oninput="calculate()">
+    </div>
+    <div class="input-group">
+        <label for="range">Range Level:</label>
+        <input type="number" id="range" value="1" min="1" oninput="calculate()">
+    </div>
+    <div class="input-group">
+        <label for="magic">Magic Level:</label>
+        <input type="number" id="magic" value="1" min="1" oninput="calculate()">
+    </div>
+
+    <hr>
+
+    <div class="input-group">
+        <label for="def">Defense Level:</label>
+        <input type="number" id="def" value="1" min="1" oninput="calculate()">
+    </div>
+    <div class="input-group">
+        <label for="eva">Evasion Level:</label>
+        <input type="number" id="eva" value="1" min="1" oninput="calculate()">
+    </div>
+    <div class="input-group">
+        <label for="ward">Warding Level:</label>
+        <input type="number" id="ward" value="1" min="1" oninput="calculate()">
+    </div>
+
+    <hr>
+
+    <div class="input-group">
+        <label for="hp">HP Level:</label>
+        <input type="number" id="hp" value="1" min="1" oninput="calculate()">
+    </div>
+
+    <div class="result-box">
+        Combat Level: <span id="combatLevel">1.00</span>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        // Get values and ensure they are parsed as integers (defaulting to 1 if empty)
+        const atk = parseInt(document.getElementById('atk').value) || 1;
+        const range = parseInt(document.getElementById('range').value) || 1;
+        const magic = parseInt(document.getElementById('magic').value) || 1;
+        
+        const def = parseInt(document.getElementById('def').value) || 1;
+        const eva = parseInt(document.getElementById('eva').value) || 1;
+        const ward = parseInt(document.getElementById('ward').value) || 1;
+        
+        const hp = parseInt(document.getElementById('hp').value) || 1;
+
+        // Apply formula logic
+        const highestOffense = Math.max(atk, range, magic);
+        const highestDefense = Math.max(def, eva, ward);
+        const hpContribution = (hp - 1) * 0.25;
+
+        const combatLevel = (highestOffense * 0.5) + (highestDefense * 0.5) + hpContribution;
+
+        // Display output (formatted to 2 decimal places, or you can use Math.floor if it rounds down)
+        document.getElementById('combatLevel').innerText = combatLevel.toFixed(2);
+    }
+
+    // Run once on load
+    calculate();
+</script>
+
+</body>
+</html>
